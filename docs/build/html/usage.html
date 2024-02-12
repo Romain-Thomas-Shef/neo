@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>How to use neo? &mdash; neo 1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="_static/my_theme.css?v=ec38ee01" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=f2a433a1"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="neo package" href="neo.html" />
+    <link rel="prev" title="Input file" href="input.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            neo
+              <img src="_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="index.html">Home</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="input.html">Input file</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">How to use neo?</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#the-command-line-interface-help">1-The command line interface help</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#giving-a-matrix">2-Giving a Matrix</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#sheets">3-Sheets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#highlevel-skill-matrix">4-HighLevel skill matrix</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#training-matrix">5-Training matrix</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#plot-sub-matrix">6-Plot sub-matrix</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#individual-data">7-Individual data</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="neo.html">neo package</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">neo</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">How to use neo?</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/usage.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="admonition note" id="usagecli">
+<p class="admonition-title">Note</p>
+<p>All the files used in the examples below are public and shared in the repository. They are shared in the same GPLv3 licence as the software.</p>
+</div>
+<section id="how-to-use-neo">
+<h1>How to use neo?<a class="headerlink" href="#how-to-use-neo" title="Link to this heading"></a></h1>
+<section id="the-command-line-interface-help">
+<h2>1-The command line interface help<a class="headerlink" href="#the-command-line-interface-help" title="Link to this heading"></a></h2>
+<p>You can start neo from a terminal. neo comes with a command line interface which includes a ‘help’ that you can display in your terminal using the help command. It must be called like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>[user@machine]$ neo --help
+</pre></div>
+</div>
+<p>This command will display the help of the program:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">usage</span><span class="p">:</span> <span class="n">neo</span> <span class="p">[</span><span class="o">-</span><span class="n">h</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">m</span> <span class="n">MATRIX</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">s</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">n</span> <span class="n">NAME</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">f</span> <span class="n">FIRST</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">c</span> <span class="n">COLUMN</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">e</span> <span class="n">RSE</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">t</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="n">test</span><span class="p">]</span>
+
+<span class="n">This</span> <span class="n">small</span> <span class="n">program</span> <span class="n">read</span> <span class="n">a</span> <span class="n">skills</span> <span class="n">matrix</span> <span class="ow">and</span> <span class="n">allows</span> <span class="n">you</span> <span class="n">to</span> <span class="n">plot</span> <span class="n">the</span> <span class="n">skills</span> <span class="n">matrices</span> <span class="n">at</span> <span class="n">the</span> <span class="n">group</span> <span class="ow">and</span> <span class="n">individual</span> <span class="n">levels</span>
+
+<span class="n">options</span><span class="p">:</span>
+  <span class="o">-</span><span class="n">h</span><span class="p">,</span> <span class="o">--</span><span class="n">help</span>            <span class="n">show</span> <span class="n">this</span> <span class="n">help</span> <span class="n">message</span> <span class="ow">and</span> <span class="n">exit</span>
+  <span class="o">-</span><span class="n">m</span> <span class="n">MATRIX</span><span class="p">,</span> <span class="o">--</span><span class="n">matrix</span> <span class="n">MATRIX</span>
+                        <span class="n">Spreadsheet</span> <span class="n">you</span> <span class="n">want</span> <span class="n">to</span> <span class="nb">open</span>
+  <span class="o">-</span><span class="n">s</span><span class="p">,</span> <span class="o">--</span><span class="n">sheets</span>          <span class="n">List</span> <span class="nb">all</span> <span class="n">sheets</span> <span class="n">available</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">file</span>
+  <span class="o">-</span><span class="n">n</span> <span class="n">NAME</span><span class="p">,</span> <span class="o">--</span><span class="n">name</span> <span class="n">NAME</span>  <span class="n">Name</span> <span class="n">of</span> <span class="n">the</span> <span class="n">sheet</span> <span class="p">(</span><span class="n">sub</span> <span class="n">skill</span> <span class="n">matrix</span><span class="p">)</span> <span class="n">to</span> <span class="n">consider</span>
+  <span class="o">-</span><span class="n">f</span> <span class="n">FIRST</span><span class="p">,</span> <span class="o">--</span><span class="n">first</span> <span class="n">FIRST</span>
+                        <span class="n">First</span> <span class="n">row</span> <span class="n">of</span> <span class="n">the</span> <span class="n">matrix</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">spreadsheet</span>
+  <span class="o">-</span><span class="n">c</span> <span class="n">COLUMN</span><span class="p">,</span> <span class="o">--</span><span class="n">column</span> <span class="n">COLUMN</span>
+                        <span class="n">Letter</span> <span class="n">of</span> <span class="n">the</span> <span class="n">Skill</span> <span class="n">column</span>
+  <span class="o">-</span><span class="n">e</span> <span class="n">RSE</span><span class="p">,</span> <span class="o">--</span><span class="n">rse</span> <span class="n">RSE</span>     <span class="n">Name</span> <span class="n">of</span> <span class="n">the</span> <span class="n">rse</span> <span class="n">to</span> <span class="n">plot</span> <span class="n">the</span> <span class="n">skill</span> <span class="n">matrix</span> <span class="k">for</span>
+  <span class="o">-</span><span class="n">t</span><span class="p">,</span> <span class="o">--</span><span class="n">training</span>
+  <span class="o">--</span><span class="n">test</span>                <span class="n">Run</span> <span class="n">the</span> <span class="n">test</span> <span class="n">suite</span>
+</pre></div>
+</div>
+<p>Neo can be started with few different arguments. If you start neo without any arguments you will get the following message</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>[user@machine]:$ neo
+[Skills Matrix Generation] :No spreadsheet was given....exit...
+</pre></div>
+</div>
+<p>We explain the other arguments below</p>
+</section>
+<section id="giving-a-matrix">
+<h2>2-Giving a Matrix<a class="headerlink" href="#giving-a-matrix" title="Link to this heading"></a></h2>
+<p>The argument ‘–matrix’ [or the shorter version ‘-m’] is where you feed Neo with your matrix file. To know how what kind of file you should give please have a look at <a class="reference internal" href="input.html"><span class="doc">Input file</span></a>.</p>
+</section>
+<section id="sheets">
+<h2>3-Sheets<a class="headerlink" href="#sheets" title="Link to this heading"></a></h2>
+<p>The argument ‘-s’ or ‘-/-sheet’ allows you to have a list of sheets in the spreadsheet. Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>user@machine:$ neo -m Fake_SkillsInterestMatrix.xlsx --sheets
+[Neo: Matrix Generation:] : Spreadsheet found...start analysis...
+[Neo: Matrix Generation:] : Open file...
+[Neo: List sheets] : Extracting sheets...
+[Neo: List sheets] : HighLevel
+[Neo: List sheets] : HL4
+[Neo: List sheets] : HL3
+[Neo: List sheets] : HL2
+[Neo: List sheets] : HL1
+[Neo: List sheets] : Topics
+[Neo: Matrix Generation:] : End of request
+</pre></div>
+</div>
+</section>
+<section id="highlevel-skill-matrix">
+<h2>4-HighLevel skill matrix<a class="headerlink" href="#highlevel-skill-matrix" title="Link to this heading"></a></h2>
+<p>In the default file format, the first sheet is the HighLevel skills matrix. This is the sheet where people identify the areas where they have some knowledge.  The argument ‘-n’ or ‘-/-name’ allows you to extract a given submatrix and display its data. So for the HighLevel matrix you will need to write:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>user@machine:$ neo -m Fake_SkillsInterestMatrix.xlsx -n HighLevel
+</pre></div>
+</div>
+<p>Note that in the default file format, the HighLevel skill matrix starts at line 13 hence you will have to precise the first line (by default it is setup at Line 2, like for other subsills matrix):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>user@machine:$ neo -m Fake_SkillsInterestMatrix.xlsx -n HighLevel -f 13
+</pre></div>
+</div>
+<p>This will display the genera skills matrix as a circular barplot. For each HighLevel skill area, you will have a bar whose height corresponds to the number of people who answered ‘YES’ to that skill.</p>
+<figure class="align-center" id="id1">
+<a class="reference internal image-reference" href="_images/HL_matrix.png"><img alt="High Level Skill Matrix" src="_images/HL_matrix.png" style="width: 600px;" /></a>
+<figcaption>
+<p><span class="caption-text">High Level Skill matrix</span><a class="headerlink" href="#id1" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+</section>
+<section id="training-matrix">
+<h2>5-Training matrix<a class="headerlink" href="#training-matrix" title="Link to this heading"></a></h2>
+<p>The use of the ‘–training’ argument will allow you to display the training matrix. It is a spider plot. For each skills, the value of the spider plot represent the number of people who said ‘No, but interested’ in the High Level skills matrix.</p>
+<p>An example is given below:</p>
+<figure class="align-center" id="id2">
+<a class="reference internal image-reference" href="_images/HL_traning.png"><img alt="Training Skill Matrix" src="_images/HL_traning.png" style="width: 600px;" /></a>
+<figcaption>
+<p><span class="caption-text">Training skills Matrix</span><a class="headerlink" href="#id2" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+</section>
+<section id="plot-sub-matrix">
+<h2>6-Plot sub-matrix<a class="headerlink" href="#plot-sub-matrix" title="Link to this heading"></a></h2>
+<p>The argument ‘-n’ or ‘-/-name’ allows you to extract a given submatrix and display its data:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>user@machine:$ neo -m Fake_SkillsInterestMatrix.xlsx -n HL1
+[Neo: Matrix Generation:] : Spreadsheet found...start analysis...
+[Neo: Matrix Generation:] : Extracting HL1 matrix
+[Neo: Matrix Generation:] : End of request
+</pre></div>
+</div>
+<p>This will give the following two plots:</p>
+<figure class="align-center" id="id3">
+<a class="reference internal image-reference" href="_images/HL1_proficiency.png"><img alt="Proficiency Subskills Matrix" src="_images/HL1_proficiency.png" style="width: 600px;" /></a>
+<figcaption>
+<p><span class="caption-text">Subskill Matrix - Tota proficiency per skill</span><a class="headerlink" href="#id3" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>This first plot gives the total team proficiency for each skill. As shown in <a class="reference internal" href="input.html"><span class="doc">Input file</span></a>, the maximum profiency for a given skill is 3. Hence, the total proficiency for a given skill is the number of people in the sub-skills matrix multiplied by three.</p>
+<figure class="align-center" id="id4">
+<a class="reference internal image-reference" href="_images/HL1_user.png"><img alt="Npeople SubSkill Matrix" src="_images/HL1_user.png" style="width: 600px;" /></a>
+<figcaption>
+<p><span class="caption-text">Subskill Matrix - NPeople/skill</span><a class="headerlink" href="#id4" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>The second plot gives the number of people with a proficiency at least equal to 1 per skills. It allows to see how many people have some knowledge about a given skill.</p>
+<p>If the name of the matrix you want to display does not correspond to any of the sheets in the file you have given you will get a message and the program will quit:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>usaer@machine:$ neo -m Fake_SkillsInterestMatrix.xlsx -n HL19
+[Neo: Matrix Generation:] : Spreadsheet found...start analysis...
+[Neo: Matrix Generation:] : Extracting HL19 matrix
+[Neo: Matrix Generation:] : Matrix HL19 not found...exit...
+[Neo: Matrix Generation:] : End of request
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>It is assumed that the submatrix starts at the line #2 of the sheet. This is why the argument ‘-f’ or ‘-/-first’ has a default value of 2. If that is not the case, you have to precise the first line of the spreadsheet (the one with RSEnames).</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>It is also assumed that the submatrix column with the skills name is the column A. You can give another one by using the  ‘-c’ or ‘-/-column’ argument.</p>
+</div>
+</section>
+<section id="individual-data">
+<h2>7-Individual data<a class="headerlink" href="#individual-data" title="Link to this heading"></a></h2>
+<p>It is possible to display individual data for a given member of the team an for a given matrix. For this you can use the ‘-e’ argument giving:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>user@machine:$ neo -m Fake_SkillsInterestMatrix.xlsx -n HL1 -e Thor
+[Neo: Matrix Generation:] : Spreadsheet found...start analysis...
+[Neo: Matrix Generation:] : Extracting HL1 matrix
+[Neo: Matrix Generation:] : End of request
+</pre></div>
+</div>
+<p>This will give a spider plot proficiency per skill:</p>
+<figure class="align-center" id="id5">
+<a class="reference internal image-reference" href="_images/Matrix_indiv.png"><img alt="Inidividual Matrix" src="_images/Matrix_indiv.png" style="width: 600px;" /></a>
+<figcaption>
+<p><span class="caption-text">Subskill Matrix - For a single team member</span><a class="headerlink" href="#id5" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>Of course, if you try to display the skill matrix of a person that does not have data in the skill matrix, you will end up with nothing:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>user@machine:$ neo -m Fake_SkillsInterestMatrix.xlsx -n HL1 -e Thore
+[Neo: Matrix Generation:] : Spreadsheet found...start analysis...
+[Neo: Matrix Generation:] : Extracting HL1 matrix
+[Neo: Matrix Generation:] : The HL1 matrix for Thore is empty...exit...
+[Neo: Matrix Generation:] : End of request
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="input.html" class="btn btn-neutral float-left" title="Input file" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="neo.html" class="btn btn-neutral float-right" title="neo package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, R. Thomas.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Input file &mdash; neo 1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="_static/my_theme.css?v=ec38ee01" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=f2a433a1"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="How to use neo?" href="usage.html" />
+    <link rel="prev" title="Installation" href="installation.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            neo
+              <img src="_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="index.html">Home</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Input file</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">How to use neo?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="neo.html">neo package</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">neo</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Input file</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/input.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="admonition note" id="usagecli">
+<p class="admonition-title">Note</p>
+<p>All the files used in the examples below are public and shared in the repository. They are shared in the same GPLv3 licence as the software.</p>
+</div>
+<section id="input-file">
+<h1>Input file<a class="headerlink" href="#input-file" title="Link to this heading"></a></h1>
+<p>Neo works with spreadsheets [can be done via Google drive, Libreoffice or Excel]. The format of the spreadsheet is predefined and must be respected to make sure that Neo can read it. An example of such spreadsheed it given in the next image.</p>
+<figure class="align-center" id="id1">
+<a class="reference internal image-reference" href="_images/HL_file.png"><img alt="High Level Skill Matrix screenshot" src="_images/HL_file.png" style="width: 1100px;" /></a>
+<figcaption>
+<p><span class="caption-text">Screenshot of the High Level sheet</span><a class="headerlink" href="#id1" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>The file is organised in two types of skills matrices: the high Level one, where only general topics are present, and low level ones that corresponds to each topic of the High level one. This is where actual skills are listed. The image above show the High Level Skill Matrix. The first column [A] has the general topics list. The second column is just an example of how to fill the cells. The subsequent columns correspond to each team member. Each cell is a drop-down list with three possibilities: ‘Yes’, ‘No’ and ‘No, but interested’. The latter answer being used to create the training team matrix.</p>
+<p>The second type of sheet you can have is a subskills matrix. In general it is associated to a line in the general HighLevel matrix. A screenshot can be seen below.</p>
+<figure class="align-center" id="id2">
+<a class="reference internal image-reference" href="_images/Subskills_file.png"><img alt="SubSkill Matrix file screenshot" src="_images/Subskills_file.png" style="width: 1100px;" /></a>
+<figcaption>
+<p><span class="caption-text">Screenshot of a subskill matrix</span><a class="headerlink" href="#id2" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>In this submatrix, the first line gives an indication of who designed it. This line is not part of the skills matrix. When reading the sheet neo will start at line 2 (see <a class="reference internal" href="usage.html"><span class="doc">How to use neo?</span></a>). The first column [‘A’] contains the list of skills while the second column [‘B’] gives, for each skill, two lines: Proficiency and interest. The first line, Proficiency, is a scale from 0 [never used] to 3 [Professional] while the second line indicate the interest [‘Yes’ or ‘No’] of the team member in using this skill [you might be very skilled at one thing and not willing to use it]. The additional columns represent members of the team. It is worth noting that only people who know some of the skills should add their column. There is no point in completing a subskills matrix if this is just to add ‘0’ and ‘No’.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>To be read correctly by Neo, the column of each team member MUST BE COMPLETED FULLY. If some cells are missing, Neo will warn you that there are missing data.</p>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="installation.html" class="btn btn-neutral float-left" title="Installation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="usage.html" class="btn btn-neutral float-right" title="How to use neo?" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, R. Thomas.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

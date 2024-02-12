@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>neo.meta_func &mdash; neo 1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=f2a433a1"></script>
+        <script src="../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            neo
+              <img src="../../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">Home</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../input.html">Input file</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usage.html">How to use neo?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../neo.html">neo package</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">neo</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">neo.meta_func</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for neo.meta_func</h1><div class="highlight"><pre>
+<span></span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">This is the file with all the meta functions used directly</span>
+<span class="sd">from command line argument</span>
+
+<span class="sd">Author: R. Thomas</span>
+<span class="sd">Year: 2023-24</span>
+<span class="sd">Place: U. of Sheffield</span>
+<span class="sd">Licence: GPLv3</span>
+<span class="sd">Pylint: 8.76</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="c1">###Standard library imports</span>
+<span class="kn">import</span> <span class="nn">os</span> <span class="c1">###for testing only</span>
+<span class="kn">import</span> <span class="nn">io</span>
+<span class="kn">import</span> <span class="nn">unittest</span>
+
+<span class="c1">##Third party imports</span>
+<span class="kn">import</span> <span class="nn">openpyxl</span>
+<span class="kn">import</span> <span class="nn">numpy</span>
+
+<span class="c1">##local imports</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">read_skills_matrix</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">plot_matrix</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">hardcoded</span>
+
+<div class="viewcode-block" id="training_matrix">
+<a class="viewcode-back" href="../../neo.html#neo.meta_func.training_matrix">[docs]</a>
+<span class="k">def</span> <span class="nf">training_matrix</span><span class="p">(</span><span class="n">matrixfile</span><span class="p">,</span> <span class="n">plot</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    This function is called when training is given as argument</span>
+<span class="sd">    it plots the training need program.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    matrixfile  :   str</span>
+<span class="sd">                    file with skills matrix</span>
+
+<span class="sd">    plot        :   bool</span>
+<span class="sd">                    If you want to display the plot</span>
+<span class="sd">    Return</span>
+<span class="sd">    ------</span>
+<span class="sd">    needs       : dict</span>
+<span class="sd">                  skills : Training needs (number)</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="c1">###open it</span>
+    <span class="n">opened</span> <span class="o">=</span> <span class="n">openpyxl</span><span class="o">.</span><span class="n">load_workbook</span><span class="p">(</span><span class="n">matrixfile</span><span class="p">)</span>
+
+    <span class="c1">###Training information are in the High level matrix</span>
+    <span class="k">if</span> <span class="s1">&#39;HighLevel&#39;</span> <span class="ow">in</span> <span class="n">opened</span><span class="o">.</span><span class="n">sheetnames</span><span class="p">:</span>
+
+        <span class="n">sheetname</span> <span class="o">=</span> <span class="s1">&#39;HighLevel&#39;</span>
+
+        <span class="c1">###load the matrix</span>
+        <span class="n">matrix</span> <span class="o">=</span> <span class="n">read_skills_matrix</span><span class="o">.</span><span class="n">GeneralMatrix</span><span class="p">(</span><span class="n">opened</span><span class="p">,</span> <span class="n">sheetname</span><span class="p">,</span> <span class="n">first_row</span><span class="o">=</span><span class="mi">13</span><span class="p">)</span>
+        <span class="n">matrix</span><span class="o">.</span><span class="n">get_table</span><span class="p">()</span>
+
+        <span class="c1">##get the list of topics</span>
+        <span class="n">skills</span> <span class="o">=</span> <span class="n">matrix</span><span class="o">.</span><span class="n">get_skills_list</span><span class="p">()</span>
+
+        <span class="c1">##and the list of rses</span>
+        <span class="n">rses</span> <span class="o">=</span> <span class="n">matrix</span><span class="o">.</span><span class="n">get_rses</span><span class="p">()</span>
+
+        <span class="c1">###extract the high level matrix</span>
+        <span class="n">rse_training_need</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">rse</span> <span class="ow">in</span> <span class="n">rses</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">global_skills</span> <span class="o">=</span> <span class="n">matrix</span><span class="o">.</span><span class="n">get_skills_per_person</span><span class="p">(</span><span class="n">rse</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">rse</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">skills</span><span class="p">)</span>
+            <span class="n">rse_training_need</span><span class="p">[</span><span class="n">rse</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span> <span class="o">=</span> <span class="n">global_skills</span>
+
+        <span class="c1">##prepare the training need dictionary</span>
+        <span class="n">needs</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">skills</span><span class="p">,</span> <span class="mi">0</span><span class="o">*</span><span class="n">numpy</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">skills</span><span class="p">))))</span>
+
+        <span class="c1">##fill it</span>
+        <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">needs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">topic</span> <span class="o">=</span> <span class="n">n</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">for</span> <span class="n">rse</span> <span class="ow">in</span> <span class="n">rse_training_need</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="k">if</span> <span class="n">rse</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="c1">##&lt;---make sure the dictionary exists</span>
+                    <span class="n">needs</span><span class="p">[</span><span class="n">topic</span><span class="p">]</span> <span class="o">+=</span> <span class="n">rse_training_need</span><span class="p">[</span><span class="n">rse</span><span class="p">[</span><span class="mi">0</span><span class="p">]][</span><span class="n">topic</span><span class="p">][</span><span class="s1">&#39;Training&#39;</span><span class="p">]</span>
+
+        <span class="c1">##make the plot</span>
+        <span class="k">if</span> <span class="n">plot</span><span class="p">:</span>
+            <span class="n">plot_matrix</span><span class="o">.</span><span class="n">make_training</span><span class="p">(</span><span class="n">needs</span><span class="p">)</span>
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">hardcoded</span><span class="o">.</span><span class="n">BOLD</span> <span class="o">+</span> <span class="s1">&#39;High Level matrix not found...exit..&#39;</span> <span class="p">)</span>
+        <span class="n">needs</span> <span class="o">=</span> <span class="p">{}</span> <span class="c1">##&lt;---We have to return a dictionary anyway</span>
+
+    <span class="k">return</span> <span class="n">needs</span></div>
+
+
+
+<div class="viewcode-block" id="single_matrix">
+<a class="viewcode-back" href="../../neo.html#neo.meta_func.single_matrix">[docs]</a>
+<span class="k">def</span> <span class="nf">single_matrix</span><span class="p">(</span><span class="n">matrixfile</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">first_row</span><span class="p">,</span> <span class="n">skill_column</span><span class="p">,</span> <span class="n">plot</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    This meta function extracts the matrix of a single topic.</span>
+<span class="sd">    If the plot function is used, the two plots are given:</span>
+<span class="sd">        - N people vs skills</span>
+<span class="sd">        - Total proficiency vs skills</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    matrixfile  :   str</span>
+<span class="sd">                    file name</span>
+<span class="sd">    name        :   str</span>
+<span class="sd">                    name of a matrix in the file</span>
+<span class="sd">    first_row   :  int</span>
+<span class="sd">                   first spreadsheet row where the table starts (header line)</span>
+<span class="sd">    skill_column:   str</span>
+<span class="sd">                    letter of the column where skills are</span>
+
+<span class="sd">    Return</span>
+<span class="sd">    ------</span>
+<span class="sd">    matrix      :   dict</span>
+<span class="sd">                    with matrix data</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="c1">###prepare a dictionary for the matrix</span>
+    <span class="n">skills_prof</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">skills_Npeople</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="c1">###open it</span>
+    <span class="n">opened</span> <span class="o">=</span> <span class="n">openpyxl</span><span class="o">.</span><span class="n">load_workbook</span><span class="p">(</span><span class="n">matrixfile</span><span class="p">)</span>
+
+    <span class="c1">###check that the name is in the spreadsheet</span>
+    <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">opened</span><span class="o">.</span><span class="n">sheetnames</span><span class="p">:</span>
+
+        <span class="c1">###load the matrix</span>
+        <span class="n">matrix</span> <span class="o">=</span> <span class="n">read_skills_matrix</span><span class="o">.</span><span class="n">GeneralMatrix</span><span class="p">(</span><span class="n">opened</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">first_row</span><span class="o">=</span><span class="n">first_row</span><span class="p">)</span>
+        <span class="n">matrix</span><span class="o">.</span><span class="n">get_table</span><span class="p">()</span>
+
+        <span class="c1">##get the list of topics</span>
+        <span class="n">skills</span> <span class="o">=</span> <span class="n">matrix</span><span class="o">.</span><span class="n">get_skills_list</span><span class="p">(</span><span class="n">skill_column</span><span class="p">)</span>
+
+        <span class="c1">##and the list of rses</span>
+        <span class="n">rses</span> <span class="o">=</span> <span class="n">matrix</span><span class="o">.</span><span class="n">get_rses</span><span class="p">()</span>
+
+        <span class="c1">###get skills per person</span>
+        <span class="n">skills_prof</span><span class="p">,</span> <span class="n">skills_Npeople</span> <span class="o">=</span> <span class="n">matrix</span><span class="o">.</span><span class="n">get_nperson_per_skill</span><span class="p">(</span><span class="n">rses</span><span class="p">,</span> <span class="n">skills</span><span class="p">)</span>
+        <span class="c1">#print(skills_Npeople)</span>
+
+        <span class="c1">##plot</span>
+        <span class="k">if</span> <span class="n">plot</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">name</span> <span class="o">!=</span> <span class="s1">&#39;HighLevel&#39;</span><span class="p">:</span>
+                <span class="n">plot_matrix</span><span class="o">.</span><span class="n">make_matrix_spiderplot</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">skills_prof</span><span class="p">,</span>
+                                            <span class="n">title</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;RSE </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1"> matrix</span><span class="se">\n</span><span class="s1">[Total proficiency/Skill]&#39;</span><span class="p">)</span>
+
+            <span class="n">plot_matrix</span><span class="o">.</span><span class="n">make_matrix_barplot</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">skills_Npeople</span><span class="p">,</span>
+                                            <span class="n">title</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;RSE </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1"> matrix</span><span class="se">\n</span><span class="s1">[Npeople/Skill]&#39;</span><span class="p">)</span>
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">hardcoded</span><span class="o">.</span><span class="n">BOLD</span> <span class="o">+</span> <span class="sa">f</span><span class="s1">&#39;Matrix </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1"> not found...exit...&#39;</span> <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">skills_prof</span><span class="p">,</span> <span class="n">skills_Npeople</span></div>
+
+
+
+<div class="viewcode-block" id="single_rse">
+<a class="viewcode-back" href="../../neo.html#neo.meta_func.single_rse">[docs]</a>
+<span class="k">def</span> <span class="nf">single_rse</span><span class="p">(</span><span class="n">matrixfile</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">first_row</span><span class="p">,</span> <span class="n">skill_column</span><span class="p">,</span> <span class="n">rse</span><span class="p">,</span> <span class="n">plot</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    This meta function extracts the matrix of a single topic and the data of</span>
+<span class="sd">    a single RSE.</span>
+<span class="sd">    If the plot function is used a proficiency spider plot is displayed</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    matrixfile  :   str</span>
+<span class="sd">                    file name</span>
+<span class="sd">    name        :   str</span>
+<span class="sd">                    name of a matrix in the file</span>
+<span class="sd">    first_row   :  int</span>
+<span class="sd">                   first spreadsheet row where the table starts (header line)</span>
+<span class="sd">    skill_column:   str</span>
+<span class="sd">                    letter of the column where skills are</span>
+<span class="sd">    rse         :   str</span>
+<span class="sd">                    name of the rse</span>
+
+<span class="sd">    Return</span>
+<span class="sd">    ------</span>
+<span class="sd">    matrix      :   dict</span>
+<span class="sd">                    with matrix data</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="c1">###prepare a dictionary for the matrix</span>
+    <span class="n">rse_skills</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="c1">###open it</span>
+    <span class="n">opened</span> <span class="o">=</span> <span class="n">openpyxl</span><span class="o">.</span><span class="n">load_workbook</span><span class="p">(</span><span class="n">matrixfile</span><span class="p">)</span>
+
+    <span class="c1">###check that the name is in the spreadsheet</span>
+    <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">opened</span><span class="o">.</span><span class="n">sheetnames</span><span class="p">:</span>
+
+        <span class="c1">###load the matrix</span>
+        <span class="n">matrix</span> <span class="o">=</span> <span class="n">read_skills_matrix</span><span class="o">.</span><span class="n">GeneralMatrix</span><span class="p">(</span><span class="n">opened</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">first_row</span><span class="o">=</span><span class="n">first_row</span><span class="p">)</span>
+        <span class="n">matrix</span><span class="o">.</span><span class="n">get_table</span><span class="p">()</span>
+
+        <span class="c1">##get the list of topics</span>
+        <span class="n">skills</span> <span class="o">=</span> <span class="n">matrix</span><span class="o">.</span><span class="n">get_skills_list</span><span class="p">(</span><span class="n">skill_column</span><span class="p">)</span>
+
+        <span class="c1">##and the list of rses</span>
+        <span class="n">rses</span> <span class="o">=</span> <span class="n">matrix</span><span class="o">.</span><span class="n">get_rses</span><span class="p">()</span>
+
+        <span class="c1">##check that the RSE name given is in the list</span>
+        <span class="k">for</span> <span class="n">rsename</span> <span class="ow">in</span> <span class="n">rses</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">rsename</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="n">rse</span><span class="p">:</span>
+                <span class="n">rse_skills</span> <span class="o">=</span> <span class="n">matrix</span><span class="o">.</span><span class="n">get_skills_per_person</span><span class="p">(</span><span class="n">rsename</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">rsename</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">skills</span><span class="p">)</span>
+
+        <span class="c1">###if empty</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">rse_skills</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">hardcoded</span><span class="o">.</span><span class="n">BOLD</span> <span class="o">+</span> <span class="sa">f</span><span class="s1">&#39;The </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1"> matrix for </span><span class="si">{</span><span class="n">rse</span><span class="si">}</span><span class="s1"> is empty...exit...&#39;</span><span class="p">)</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1">##plot</span>
+            <span class="k">if</span> <span class="n">plot</span><span class="p">:</span>
+                <span class="c1">###reorganise for plot</span>
+                <span class="n">rse_skill</span> <span class="o">=</span> <span class="p">{}</span>
+                <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">rse_skills</span><span class="p">:</span>
+                    <span class="n">rse_skill</span><span class="p">[</span><span class="n">s</span><span class="p">]</span> <span class="o">=</span> <span class="n">rse_skills</span><span class="p">[</span><span class="n">s</span><span class="p">][</span><span class="s1">&#39;Proficiency&#39;</span><span class="p">]</span>
+
+                <span class="c1">###let&#39;s plot</span>
+                <span class="n">plot_matrix</span><span class="o">.</span><span class="n">make_rse_indiv</span><span class="p">(</span><span class="n">rse_skill</span><span class="p">,</span> <span class="n">rse</span><span class="p">,</span>
+                                           <span class="n">title</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1"> matrix for </span><span class="si">{</span><span class="n">rse</span><span class="si">}</span><span class="se">\n</span><span class="s1">[Proficiency/Skill]&#39;</span><span class="p">)</span>
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">hardcoded</span><span class="o">.</span><span class="n">BOLD</span> <span class="o">+</span> <span class="sa">f</span><span class="s1">&#39;Matrix </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1"> not found...exit...&#39;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">rse_skills</span></div>
+
+
+
+
+
+<span class="k">class</span> <span class="nc">Testmetafunctions</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Class that tests the meta functions</span>
+<span class="sd">    We never display any plot during testing...--&gt; plot=False everwhere</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="c1">##get the fake matrix file</span>
+    <span class="n">dir_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">realpath</span><span class="p">(</span><span class="vm">__file__</span><span class="p">))</span>
+    <span class="n">Fake_matrix</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dir_path</span><span class="p">,</span> <span class="s1">&#39;tests_files/Fake_SkillsInterestMatrix.xlsx&#39;</span><span class="p">)</span>
+    <span class="n">Fake_matrix2</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dir_path</span><span class="p">,</span> <span class="s1">&#39;tests_files/Fake_SkillsInterestMatrix2.xlsx&#39;</span><span class="p">)</span>
+
+
+
+    <span class="k">def</span> <span class="nf">test_training_matrix_topics</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Test that the training matrix data are correct</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+
+        <span class="c1">###get the needs dictionary</span>
+        <span class="n">needs</span> <span class="o">=</span> <span class="n">training_matrix</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Fake_matrix</span><span class="p">,</span> <span class="n">plot</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+        <span class="c1">###check that the topics are correct:</span>
+        <span class="n">all_topics</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">needs</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">all_topics</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;HL1&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">all_topics</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;HL2&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">all_topics</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="s1">&#39;HL3&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">all_topics</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="s1">&#39;HL4&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">all_topics</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span> <span class="s1">&#39;HL5&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">all_topics</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span> <span class="s1">&#39;HL6&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">all_topics</span><span class="p">[</span><span class="mi">6</span><span class="p">],</span> <span class="s1">&#39;HL7&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">all_topics</span><span class="p">[</span><span class="mi">7</span><span class="p">],</span> <span class="s1">&#39;HL8&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">all_topics</span><span class="p">[</span><span class="mi">8</span><span class="p">],</span> <span class="s1">&#39;HL9&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">all_topics</span><span class="p">[</span><span class="mi">9</span><span class="p">],</span> <span class="s1">&#39;HL10&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">test_training_matrix_values</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Test that the training matrix data are correct</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+
+        <span class="c1">###get the needs dictionary</span>
+        <span class="n">needs</span> <span class="o">=</span> <span class="n">training_matrix</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Fake_matrix</span><span class="p">,</span> <span class="n">plot</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+        <span class="c1">###check that the topics are correct:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">needs</span><span class="p">[</span><span class="s1">&#39;HL1&#39;</span><span class="p">],</span> <span class="mi">5</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">needs</span><span class="p">[</span><span class="s1">&#39;HL2&#39;</span><span class="p">],</span> <span class="mi">5</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">needs</span><span class="p">[</span><span class="s1">&#39;HL3&#39;</span><span class="p">],</span> <span class="mi">4</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">needs</span><span class="p">[</span><span class="s1">&#39;HL4&#39;</span><span class="p">],</span> <span class="mi">8</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">needs</span><span class="p">[</span><span class="s1">&#39;HL5&#39;</span><span class="p">],</span> <span class="mi">3</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">needs</span><span class="p">[</span><span class="s1">&#39;HL6&#39;</span><span class="p">],</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">needs</span><span class="p">[</span><span class="s1">&#39;HL7&#39;</span><span class="p">],</span> <span class="mi">5</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">needs</span><span class="p">[</span><span class="s1">&#39;HL8&#39;</span><span class="p">],</span> <span class="mi">4</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">needs</span><span class="p">[</span><span class="s1">&#39;HL9&#39;</span><span class="p">],</span> <span class="mi">3</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">needs</span><span class="p">[</span><span class="s1">&#39;HL10&#39;</span><span class="p">],</span> <span class="mi">7</span><span class="p">)</span>
+
+
+    <span class="nd">@unittest</span><span class="o">.</span><span class="n">mock</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="s1">&#39;sys.stdout&#39;</span><span class="p">,</span> <span class="n">new_callable</span><span class="o">=</span><span class="n">io</span><span class="o">.</span><span class="n">StringIO</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">displayfinal_nohighlevel</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">param</span><span class="p">,</span> <span class="n">exp</span><span class="p">,</span> <span class="n">mock_stdout</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Function that actually run the test</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">needs</span> <span class="o">=</span> <span class="n">training_matrix</span><span class="p">(</span><span class="n">param</span><span class="p">,</span> <span class="n">plot</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="k">del</span> <span class="n">needs</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">mock_stdout</span><span class="o">.</span><span class="n">getvalue</span><span class="p">(),</span> <span class="n">exp</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">test_training_matrix_nohighlevel</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Test that the training matrix data are correct</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+
+        <span class="c1">###get the needs dictionary</span>
+        <span class="n">printout</span> <span class="o">=</span><span class="s1">&#39;</span><span class="se">\033</span><span class="s1">[1m&#39;</span><span class="o">+</span>\
+                  <span class="s1">&#39;[Neo: Matrix Generation:]</span><span class="se">\033</span><span class="s1">[0m : High Level matrix not found...exit..</span><span class="se">\n</span><span class="s1">&#39;</span>
+
+        <span class="c1">####test</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">displayfinal_nohighlevel</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Fake_matrix2</span><span class="p">,</span> <span class="n">printout</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">test_submatrix_topics</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Test that the submatrix skills are correct</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="c1">###get the needs dictionary</span>
+        <span class="n">skills_prof</span><span class="p">,</span> <span class="n">skills_Npeople</span> <span class="o">=</span> <span class="n">single_matrix</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Fake_matrix</span><span class="p">,</span> <span class="s1">&#39;HL1&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="n">plot</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+        <span class="c1">###check that the skills are correct</span>
+        <span class="n">skills</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">skills_prof</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+        <span class="n">skills2</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">skills_Npeople</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+
+
+        <span class="c1">##check</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">skills</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;HL1_1&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">skills</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;HL1_2&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">skills</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="s1">&#39;HL1_3&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">skills</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="s1">&#39;HL1_4&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">skills</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span> <span class="s1">&#39;HL1_5&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">skills</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span> <span class="s1">&#39;HL1_6&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">skills</span><span class="p">[</span><span class="mi">6</span><span class="p">],</span> <span class="s1">&#39;HL1_7&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">skills</span><span class="p">[</span><span class="mi">7</span><span class="p">],</span> <span class="s1">&#39;HL1_8&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">skills</span><span class="p">[</span><span class="mi">8</span><span class="p">],</span> <span class="s1">&#39;HL1_9&#39;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">skills2</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;HL1_1&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">skills2</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;HL1_2&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">skills2</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="s1">&#39;HL1_3&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">skills2</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="s1">&#39;HL1_4&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">skills2</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span> <span class="s1">&#39;HL1_5&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">skills2</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span> <span class="s1">&#39;HL1_6&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">skills2</span><span class="p">[</span><span class="mi">6</span><span class="p">],</span> <span class="s1">&#39;HL1_7&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">skills2</span><span class="p">[</span><span class="mi">7</span><span class="p">],</span> <span class="s1">&#39;HL1_8&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">skills2</span><span class="p">[</span><span class="mi">8</span><span class="p">],</span> <span class="s1">&#39;HL1_9&#39;</span><span class="p">)</span>
+
+
+    <span class="k">def</span> <span class="nf">test_submatrix_data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Test that the submatrix skills have the correct data</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="c1">###get the needs dictionary</span>
+        <span class="n">skills_prof</span><span class="p">,</span> <span class="n">skills_Npeople</span> <span class="o">=</span> <span class="n">single_matrix</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Fake_matrix</span><span class="p">,</span> <span class="s1">&#39;HL1&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="n">plot</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+        <span class="c1">##check</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">skills_prof</span><span class="p">[</span><span class="s1">&#39;HL1_1&#39;</span><span class="p">],</span> <span class="mi">14</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">skills_prof</span><span class="p">[</span><span class="s1">&#39;HL1_2&#39;</span><span class="p">],</span> <span class="mi">14</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">skills_prof</span><span class="p">[</span><span class="s1">&#39;HL1_3&#39;</span><span class="p">],</span> <span class="mi">11</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">skills_prof</span><span class="p">[</span><span class="s1">&#39;HL1_4&#39;</span><span class="p">],</span> <span class="mi">9</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">skills_prof</span><span class="p">[</span><span class="s1">&#39;HL1_5&#39;</span><span class="p">],</span> <span class="mi">3</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">skills_prof</span><span class="p">[</span><span class="s1">&#39;HL1_6&#39;</span><span class="p">],</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">skills_prof</span><span class="p">[</span><span class="s1">&#39;HL1_7&#39;</span><span class="p">],</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">skills_prof</span><span class="p">[</span><span class="s1">&#39;HL1_8&#39;</span><span class="p">],</span> <span class="mi">8</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">skills_prof</span><span class="p">[</span><span class="s1">&#39;HL1_9&#39;</span><span class="p">],</span> <span class="mi">10</span><span class="p">)</span>
+
+
+
+        <span class="c1">##check</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">skills_Npeople</span><span class="p">[</span><span class="s1">&#39;HL1_1&#39;</span><span class="p">],</span> <span class="mi">5</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">skills_Npeople</span><span class="p">[</span><span class="s1">&#39;HL1_2&#39;</span><span class="p">],</span> <span class="mi">5</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">skills_Npeople</span><span class="p">[</span><span class="s1">&#39;HL1_3&#39;</span><span class="p">],</span> <span class="mi">5</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">skills_Npeople</span><span class="p">[</span><span class="s1">&#39;HL1_4&#39;</span><span class="p">],</span> <span class="mi">4</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">skills_Npeople</span><span class="p">[</span><span class="s1">&#39;HL1_5&#39;</span><span class="p">],</span> <span class="mi">3</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">skills_Npeople</span><span class="p">[</span><span class="s1">&#39;HL1_6&#39;</span><span class="p">],</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">skills_Npeople</span><span class="p">[</span><span class="s1">&#39;HL1_7&#39;</span><span class="p">],</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">skills_Npeople</span><span class="p">[</span><span class="s1">&#39;HL1_8&#39;</span><span class="p">],</span> <span class="mi">5</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">skills_Npeople</span><span class="p">[</span><span class="s1">&#39;HL1_9&#39;</span><span class="p">],</span> <span class="mi">5</span><span class="p">)</span>
+
+
+    <span class="k">def</span> <span class="nf">test_submatrix_data_wrong_column</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Test when one of the column is wrongly filled (missing data)</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="c1">###get the needs dictionary</span>
+        <span class="n">skills_prof</span><span class="p">,</span> <span class="n">skills_Npeople</span> <span class="o">=</span> <span class="n">single_matrix</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Fake_matrix</span><span class="p">,</span> <span class="s1">&#39;HL4&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="n">plot</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+        <span class="c1">##check</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">skills_prof</span><span class="p">[</span><span class="s1">&#39;HL4_1&#39;</span><span class="p">],</span> <span class="mi">6</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">skills_prof</span><span class="p">[</span><span class="s1">&#39;HL4_2&#39;</span><span class="p">],</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">skills_prof</span><span class="p">[</span><span class="s1">&#39;HL4_3&#39;</span><span class="p">],</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">skills_prof</span><span class="p">[</span><span class="s1">&#39;HL4_4&#39;</span><span class="p">],</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">skills_prof</span><span class="p">[</span><span class="s1">&#39;HL4_5&#39;</span><span class="p">],</span> <span class="mi">0</span><span class="p">)</span>
+
+        <span class="c1">##check</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">skills_Npeople</span><span class="p">[</span><span class="s1">&#39;HL4_1&#39;</span><span class="p">],</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">skills_Npeople</span><span class="p">[</span><span class="s1">&#39;HL4_2&#39;</span><span class="p">],</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">skills_Npeople</span><span class="p">[</span><span class="s1">&#39;HL4_3&#39;</span><span class="p">],</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">skills_Npeople</span><span class="p">[</span><span class="s1">&#39;HL4_4&#39;</span><span class="p">],</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">skills_Npeople</span><span class="p">[</span><span class="s1">&#39;HL4_5&#39;</span><span class="p">],</span> <span class="mi">0</span><span class="p">)</span>
+
+
+    <span class="nd">@unittest</span><span class="o">.</span><span class="n">mock</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="s1">&#39;sys.stdout&#39;</span><span class="p">,</span> <span class="n">new_callable</span><span class="o">=</span><span class="n">io</span><span class="o">.</span><span class="n">StringIO</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">displayfinal_wrongsubmatrixname</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">param</span><span class="p">,</span> <span class="n">exp</span><span class="p">,</span> <span class="n">mock_stdout</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Function that actually run the test and catch the output</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">skills_prof</span><span class="p">,</span> <span class="n">skills_Npeople</span> <span class="o">=</span> <span class="n">single_matrix</span><span class="p">(</span><span class="n">param</span><span class="p">,</span> <span class="s1">&#39;HL5&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="n">plot</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="k">del</span> <span class="n">skills_prof</span><span class="p">,</span> <span class="n">skills_Npeople</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">mock_stdout</span><span class="o">.</span><span class="n">getvalue</span><span class="p">(),</span> <span class="n">exp</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">test_training_matrix_wrongsubmatrixname</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        start the test</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="c1">###get the needs dictionary</span>
+        <span class="n">printout</span> <span class="o">=</span><span class="s1">&#39;</span><span class="se">\033</span><span class="s1">[1m&#39;</span><span class="o">+</span><span class="s1">&#39;[Neo: Matrix Generation:]</span><span class="se">\033</span><span class="s1">[0m : Matrix HL5 not found...exit...</span><span class="se">\n</span><span class="s1">&#39;</span>
+
+        <span class="c1">####test</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">displayfinal_wrongsubmatrixname</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Fake_matrix2</span><span class="p">,</span> <span class="n">printout</span><span class="p">)</span>
+
+
+
+
+    <span class="k">def</span> <span class="nf">test_rsematrix_topics</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Test that the single rse matrix skills are correct</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="c1">###get the needs dictionary</span>
+        <span class="n">rse_skills</span> <span class="o">=</span> <span class="n">single_rse</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Fake_matrix</span><span class="p">,</span> <span class="s1">&#39;HL1&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;Rogers&#39;</span><span class="p">,</span> <span class="n">plot</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+        <span class="c1">###check that the skills are correct</span>
+        <span class="n">skills</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">rse_skills</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+
+
+        <span class="c1">##check</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">skills</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;HL1_1&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">skills</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;HL1_2&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">skills</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="s1">&#39;HL1_3&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">skills</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="s1">&#39;HL1_4&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">skills</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span> <span class="s1">&#39;HL1_5&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">skills</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span> <span class="s1">&#39;HL1_6&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">skills</span><span class="p">[</span><span class="mi">6</span><span class="p">],</span> <span class="s1">&#39;HL1_7&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">skills</span><span class="p">[</span><span class="mi">7</span><span class="p">],</span> <span class="s1">&#39;HL1_8&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">skills</span><span class="p">[</span><span class="mi">8</span><span class="p">],</span> <span class="s1">&#39;HL1_9&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">test_rsematrix_data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Test that the single rse matrix have the correct data</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="c1">###get the needs dictionary</span>
+        <span class="n">rse_skills</span> <span class="o">=</span> <span class="n">single_rse</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Fake_matrix</span><span class="p">,</span> <span class="s1">&#39;HL1&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;Rogers&#39;</span><span class="p">,</span> <span class="n">plot</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+        <span class="c1">##check Profixienxy</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">rse_skills</span><span class="p">[</span><span class="s1">&#39;HL1_1&#39;</span><span class="p">][</span><span class="s1">&#39;Proficiency&#39;</span><span class="p">],</span> <span class="mi">3</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">rse_skills</span><span class="p">[</span><span class="s1">&#39;HL1_2&#39;</span><span class="p">][</span><span class="s1">&#39;Proficiency&#39;</span><span class="p">],</span> <span class="mi">3</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">rse_skills</span><span class="p">[</span><span class="s1">&#39;HL1_3&#39;</span><span class="p">][</span><span class="s1">&#39;Proficiency&#39;</span><span class="p">],</span> <span class="mi">3</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">rse_skills</span><span class="p">[</span><span class="s1">&#39;HL1_4&#39;</span><span class="p">][</span><span class="s1">&#39;Proficiency&#39;</span><span class="p">],</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">rse_skills</span><span class="p">[</span><span class="s1">&#39;HL1_5&#39;</span><span class="p">][</span><span class="s1">&#39;Proficiency&#39;</span><span class="p">],</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">rse_skills</span><span class="p">[</span><span class="s1">&#39;HL1_6&#39;</span><span class="p">][</span><span class="s1">&#39;Proficiency&#39;</span><span class="p">],</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">rse_skills</span><span class="p">[</span><span class="s1">&#39;HL1_7&#39;</span><span class="p">][</span><span class="s1">&#39;Proficiency&#39;</span><span class="p">],</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">rse_skills</span><span class="p">[</span><span class="s1">&#39;HL1_8&#39;</span><span class="p">][</span><span class="s1">&#39;Proficiency&#39;</span><span class="p">],</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">rse_skills</span><span class="p">[</span><span class="s1">&#39;HL1_9&#39;</span><span class="p">][</span><span class="s1">&#39;Proficiency&#39;</span><span class="p">],</span> <span class="mi">2</span><span class="p">)</span>
+
+        <span class="c1">##check usage</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">rse_skills</span><span class="p">[</span><span class="s1">&#39;HL1_1&#39;</span><span class="p">][</span><span class="s1">&#39;usage&#39;</span><span class="p">],</span> <span class="s1">&#39;Yes&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">rse_skills</span><span class="p">[</span><span class="s1">&#39;HL1_2&#39;</span><span class="p">][</span><span class="s1">&#39;usage&#39;</span><span class="p">],</span> <span class="s1">&#39;Yes&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">rse_skills</span><span class="p">[</span><span class="s1">&#39;HL1_3&#39;</span><span class="p">][</span><span class="s1">&#39;usage&#39;</span><span class="p">],</span> <span class="s1">&#39;Yes&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">rse_skills</span><span class="p">[</span><span class="s1">&#39;HL1_4&#39;</span><span class="p">][</span><span class="s1">&#39;usage&#39;</span><span class="p">],</span> <span class="s1">&#39;Yes&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">rse_skills</span><span class="p">[</span><span class="s1">&#39;HL1_5&#39;</span><span class="p">][</span><span class="s1">&#39;usage&#39;</span><span class="p">],</span> <span class="s1">&#39;No&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">rse_skills</span><span class="p">[</span><span class="s1">&#39;HL1_6&#39;</span><span class="p">][</span><span class="s1">&#39;usage&#39;</span><span class="p">],</span> <span class="s1">&#39;Yes&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">rse_skills</span><span class="p">[</span><span class="s1">&#39;HL1_7&#39;</span><span class="p">][</span><span class="s1">&#39;usage&#39;</span><span class="p">],</span> <span class="s1">&#39;Yes&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">rse_skills</span><span class="p">[</span><span class="s1">&#39;HL1_8&#39;</span><span class="p">][</span><span class="s1">&#39;usage&#39;</span><span class="p">],</span> <span class="s1">&#39;Yes&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">rse_skills</span><span class="p">[</span><span class="s1">&#39;HL1_9&#39;</span><span class="p">][</span><span class="s1">&#39;usage&#39;</span><span class="p">],</span> <span class="s1">&#39;No&#39;</span><span class="p">)</span>
+
+
+
+    <span class="nd">@unittest</span><span class="o">.</span><span class="n">mock</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="s1">&#39;sys.stdout&#39;</span><span class="p">,</span> <span class="n">new_callable</span><span class="o">=</span><span class="n">io</span><span class="o">.</span><span class="n">StringIO</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">displayfinal_wrongrsename</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">param</span><span class="p">,</span> <span class="n">exp</span><span class="p">,</span> <span class="n">mock_stdout</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Function that actually run the test and catch the output</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">rse_skills</span> <span class="o">=</span> <span class="n">single_rse</span><span class="p">(</span><span class="n">param</span><span class="p">,</span> <span class="s1">&#39;HL1&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;romain&#39;</span><span class="p">,</span> <span class="n">plot</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="k">del</span> <span class="n">rse_skills</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">mock_stdout</span><span class="o">.</span><span class="n">getvalue</span><span class="p">(),</span> <span class="n">exp</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">test_training_matrix_wrongrsename</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        start the test</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="c1">###get the needs dictionary</span>
+        <span class="n">printout</span> <span class="o">=</span><span class="s1">&#39;</span><span class="se">\033</span><span class="s1">[1m&#39;</span><span class="o">+</span>\
+                  <span class="s1">&#39;[Neo: Matrix Generation:]</span><span class="se">\033</span><span class="s1">[0m : The HL1 matrix for romain is empty...exit...</span><span class="se">\n</span><span class="s1">&#39;</span>
+
+        <span class="c1">####test</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">displayfinal_wrongrsename</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Fake_matrix</span><span class="p">,</span> <span class="n">printout</span><span class="p">)</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, R. Thomas.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

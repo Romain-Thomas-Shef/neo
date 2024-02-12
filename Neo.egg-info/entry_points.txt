@@ -1,0 +1,3 @@
+[gui_scripts]
+neo = neo.__main__:main
+

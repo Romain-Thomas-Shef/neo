@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>neo.cli &mdash; neo 1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=f2a433a1"></script>
+        <script src="../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            neo
+              <img src="../../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">Home</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../input.html">Input file</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usage.html">How to use neo?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../neo.html">neo package</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">neo</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">neo.cli</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for neo.cli</h1><div class="highlight"><pre>
+<span></span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">This file contains the command line interface</span>
+
+<span class="sd">Author: R. Thomas</span>
+<span class="sd">Place: U. of Sheffield</span>
+<span class="sd">Year: 2023-24</span>
+<span class="sd">Licence: GPLv3</span>
+<span class="sd">Pylint v3.0.3 score: 10</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="kn">import</span> <span class="nn">argparse</span>
+<span class="kn">import</span> <span class="nn">unittest</span>
+
+<div class="viewcode-block" id="arguments">
+<a class="viewcode-back" href="../../neo.html#neo.cli.arguments">[docs]</a>
+<span class="k">def</span> <span class="nf">arguments</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    This function set up the command line interface</span>
+
+<span class="sd">    Parameter</span>
+<span class="sd">    ---------</span>
+<span class="sd">    args      : list</span>
+<span class="sd">                of argument given in the command line</span>
+
+<span class="sd">    Return</span>
+<span class="sd">    ------</span>
+<span class="sd">    options     :   Namespace</span>
+<span class="sd">                    with argument analysed</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span><span class="n">prog</span><span class="o">=</span><span class="s1">&#39;neo&#39;</span><span class="p">,</span>
+                                     <span class="n">description</span><span class="o">=</span><span class="s1">&#39;This small program read a skills matrix and&#39;</span><span class="o">+</span>\
+                                                 <span class="s1">&#39; allows you to plot the skills matrices at&#39;</span>\
+                                                 <span class="s1">&#39; the group and individual levels&#39;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-m&#39;</span><span class="p">,</span> <span class="s1">&#39;--matrix&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Spreadsheet you want to open&#39;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-s&#39;</span><span class="p">,</span> <span class="s1">&#39;--sheets&#39;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s1">&#39;store_true&#39;</span><span class="p">,</span>
+                        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;List all sheets available in the file&#39;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-n&#39;</span><span class="p">,</span> <span class="s1">&#39;--name&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span>
+                        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Name of the sheet (sub skill matrix) to consider&#39;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-f&#39;</span><span class="p">,</span> <span class="s1">&#39;--first&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span>
+                        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;First row of the matrix in the spreadsheet&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-c&#39;</span><span class="p">,</span> <span class="s1">&#39;--column&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Letter of the Skill column&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s1">&#39;A&#39;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-e&#39;</span><span class="p">,</span> <span class="s1">&#39;--rse&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span>
+                        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Name of the rse to plot the skill matrix for&#39;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-t&#39;</span><span class="p">,</span> <span class="s1">&#39;--training&#39;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s1">&#39;store_true&#39;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--test&#39;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s1">&#39;store_true&#39;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Run the test suite&#39;</span><span class="p">)</span>
+
+    <span class="n">options</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">options</span></div>
+
+
+
+<span class="k">class</span> <span class="nc">TestArguments</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    This test the argument function that builts that command line</span>
+<span class="sd">    interface.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+
+    <span class="k">def</span> <span class="nf">test_arguments</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Test a standard configuration</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">test_args</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;-m&#39;</span><span class="p">,</span> <span class="s1">&#39;example.xlsx&#39;</span><span class="p">,</span> <span class="s1">&#39;-s&#39;</span><span class="p">,</span> <span class="s1">&#39;-n&#39;</span><span class="p">,</span> <span class="s1">&#39;sub_skill_matrix&#39;</span><span class="p">,</span>
+                     <span class="s1">&#39;-f&#39;</span><span class="p">,</span> <span class="s1">&#39;3&#39;</span><span class="p">,</span> <span class="s1">&#39;-c&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="s1">&#39;-e&#39;</span><span class="p">,</span> <span class="s1">&#39;JohnDoe&#39;</span><span class="p">,</span> <span class="s1">&#39;-t&#39;</span><span class="p">]</span>
+        <span class="n">options</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">(</span><span class="n">test_args</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">options</span><span class="o">.</span><span class="n">matrix</span><span class="p">,</span> <span class="s1">&#39;example.xlsx&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">options</span><span class="o">.</span><span class="n">sheets</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">options</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="s1">&#39;sub_skill_matrix&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">options</span><span class="o">.</span><span class="n">first</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">options</span><span class="o">.</span><span class="n">column</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">options</span><span class="o">.</span><span class="n">rse</span><span class="p">,</span> <span class="s1">&#39;JohnDoe&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">options</span><span class="o">.</span><span class="n">training</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertFalse</span><span class="p">(</span><span class="n">options</span><span class="o">.</span><span class="n">test</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">test_arguments_2</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Another configuration</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">test_args_2</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;-m&#39;</span><span class="p">,</span> <span class="s1">&#39;another_example.xlsx&#39;</span><span class="p">,</span> <span class="s1">&#39;-n&#39;</span><span class="p">,</span> <span class="s1">&#39;specific_sheet&#39;</span><span class="p">,</span> <span class="s1">&#39;-e&#39;</span><span class="p">,</span> <span class="s1">&#39;JaneDoe&#39;</span><span class="p">]</span>
+        <span class="n">options_2</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">(</span><span class="n">test_args_2</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">options_2</span><span class="o">.</span><span class="n">matrix</span><span class="p">,</span> <span class="s1">&#39;another_example.xlsx&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertFalse</span><span class="p">(</span><span class="n">options_2</span><span class="o">.</span><span class="n">sheets</span><span class="p">)</span>  <span class="c1"># Not using -s in this case</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">options_2</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="s1">&#39;specific_sheet&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">options_2</span><span class="o">.</span><span class="n">first</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>  <span class="c1"># Assuming the default value for -f is 2</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">options_2</span><span class="o">.</span><span class="n">column</span><span class="p">,</span> <span class="s1">&#39;A&#39;</span><span class="p">)</span>  <span class="c1"># Assuming the default value for -c is &#39;A&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">options_2</span><span class="o">.</span><span class="n">rse</span><span class="p">,</span> <span class="s1">&#39;JaneDoe&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertFalse</span><span class="p">(</span><span class="n">options_2</span><span class="o">.</span><span class="n">training</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertFalse</span><span class="p">(</span><span class="n">options_2</span><span class="o">.</span><span class="n">test</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">test_arguments_3</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        test default values</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">test_args</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">options</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">(</span><span class="n">test_args</span><span class="p">)</span>
+
+        <span class="c1"># Assuming you have default values for some arguments</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIsNone</span><span class="p">(</span><span class="n">options</span><span class="o">.</span><span class="n">matrix</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertFalse</span><span class="p">(</span><span class="n">options</span><span class="o">.</span><span class="n">sheets</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">options</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">options</span><span class="o">.</span><span class="n">first</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">options</span><span class="o">.</span><span class="n">column</span><span class="p">,</span> <span class="s1">&#39;A&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIsNone</span><span class="p">(</span><span class="n">options</span><span class="o">.</span><span class="n">rse</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertFalse</span><span class="p">(</span><span class="n">options</span><span class="o">.</span><span class="n">training</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertFalse</span><span class="p">(</span><span class="n">options</span><span class="o">.</span><span class="n">test</span><span class="p">)</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, R. Thomas.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

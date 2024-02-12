@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>neo package &mdash; neo 1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=f2a433a1"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="How to use neo?" href="usage.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            neo
+              <img src="_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="index.html">Home</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="input.html">Input file</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">How to use neo?</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">neo package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-neo.cli">neo.cli module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#neo.cli.arguments"><code class="docutils literal notranslate"><span class="pre">arguments()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-neo.hardcoded">neo.hardcoded module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-neo.meta_func">neo.meta_func module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#neo.meta_func.single_matrix"><code class="docutils literal notranslate"><span class="pre">single_matrix()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#neo.meta_func.single_rse"><code class="docutils literal notranslate"><span class="pre">single_rse()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#neo.meta_func.training_matrix"><code class="docutils literal notranslate"><span class="pre">training_matrix()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-neo.plot_matrix">neo.plot_matrix module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#neo.plot_matrix.make_matrix_barplot"><code class="docutils literal notranslate"><span class="pre">make_matrix_barplot()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#neo.plot_matrix.make_matrix_spiderplot"><code class="docutils literal notranslate"><span class="pre">make_matrix_spiderplot()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#neo.plot_matrix.make_rse_indiv"><code class="docutils literal notranslate"><span class="pre">make_rse_indiv()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#neo.plot_matrix.make_training"><code class="docutils literal notranslate"><span class="pre">make_training()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#neo.plot_matrix.plot_aestethics"><code class="docutils literal notranslate"><span class="pre">plot_aestethics()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-neo.read_skills_matrix">neo.read_skills_matrix module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#neo.read_skills_matrix.GeneralMatrix"><code class="docutils literal notranslate"><span class="pre">GeneralMatrix</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#neo.read_skills_matrix.GeneralMatrix.get_nperson_per_skill"><code class="docutils literal notranslate"><span class="pre">GeneralMatrix.get_nperson_per_skill()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#neo.read_skills_matrix.GeneralMatrix.get_rses"><code class="docutils literal notranslate"><span class="pre">GeneralMatrix.get_rses()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#neo.read_skills_matrix.GeneralMatrix.get_skills_list"><code class="docutils literal notranslate"><span class="pre">GeneralMatrix.get_skills_list()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#neo.read_skills_matrix.GeneralMatrix.get_skills_per_person"><code class="docutils literal notranslate"><span class="pre">GeneralMatrix.get_skills_per_person()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#neo.read_skills_matrix.GeneralMatrix.get_table"><code class="docutils literal notranslate"><span class="pre">GeneralMatrix.get_table()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#neo.read_skills_matrix.GeneralMatrix.get_table_shape"><code class="docutils literal notranslate"><span class="pre">GeneralMatrix.get_table_shape()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-neo.tests">neo.tests module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-neo">Module contents</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#neo.GeneralMatrix"><code class="docutils literal notranslate"><span class="pre">GeneralMatrix</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#neo.GeneralMatrix.get_nperson_per_skill"><code class="docutils literal notranslate"><span class="pre">GeneralMatrix.get_nperson_per_skill()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#neo.GeneralMatrix.get_rses"><code class="docutils literal notranslate"><span class="pre">GeneralMatrix.get_rses()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#neo.GeneralMatrix.get_skills_list"><code class="docutils literal notranslate"><span class="pre">GeneralMatrix.get_skills_list()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#neo.GeneralMatrix.get_skills_per_person"><code class="docutils literal notranslate"><span class="pre">GeneralMatrix.get_skills_per_person()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#neo.GeneralMatrix.get_table"><code class="docutils literal notranslate"><span class="pre">GeneralMatrix.get_table()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#neo.GeneralMatrix.get_table_shape"><code class="docutils literal notranslate"><span class="pre">GeneralMatrix.get_table_shape()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#neo.make_matrix_barplot"><code class="docutils literal notranslate"><span class="pre">make_matrix_barplot()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#neo.make_matrix_spiderplot"><code class="docutils literal notranslate"><span class="pre">make_matrix_spiderplot()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#neo.make_training"><code class="docutils literal notranslate"><span class="pre">make_training()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">neo</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">neo package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/neo.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="neo-package">
+<h1>neo package<a class="headerlink" href="#neo-package" title="Link to this heading"></a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
+</section>
+<section id="module-neo.cli">
+<span id="neo-cli-module"></span><h2>neo.cli module<a class="headerlink" href="#module-neo.cli" title="Link to this heading"></a></h2>
+<p>This file contains the command line interface</p>
+<p>Author: R. Thomas
+Place: U. of Sheffield
+Year: 2023-24
+Licence: GPLv3
+Pylint v3.0.3 score: 10</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="neo.cli.arguments">
+<span class="sig-prename descclassname"><span class="pre">neo.cli.</span></span><span class="sig-name descname"><span class="pre">arguments</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/neo/cli.html#arguments"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neo.cli.arguments" title="Link to this definition"></a></dt>
+<dd><p>This function set up the command line interface</p>
+<section id="parameter">
+<h3>Parameter<a class="headerlink" href="#parameter" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>args<span class="classifier">list</span></dt><dd><p>of argument given in the command line</p>
+</dd>
+</dl>
+</section>
+<section id="return">
+<h3>Return<a class="headerlink" href="#return" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>options<span class="classifier">Namespace</span></dt><dd><p>with argument analysed</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+</section>
+<section id="module-neo.hardcoded">
+<span id="neo-hardcoded-module"></span><h2>neo.hardcoded module<a class="headerlink" href="#module-neo.hardcoded" title="Link to this heading"></a></h2>
+<p>This file is part of the neo module
+It lists all the hardcoded elements</p>
+<p>Author: R. Thomas
+Place: U. of Sheffield
+Year: 2023
+Licence: GPLv3
+Pylint v3.0.3 score: 10</p>
+</section>
+<section id="module-neo.meta_func">
+<span id="neo-meta-func-module"></span><h2>neo.meta_func module<a class="headerlink" href="#module-neo.meta_func" title="Link to this heading"></a></h2>
+<p>This is the file with all the meta functions used directly
+from command line argument</p>
+<p>Author: R. Thomas
+Year: 2023-24
+Place: U. of Sheffield
+Licence: GPLv3
+Pylint: 8.76</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="neo.meta_func.single_matrix">
+<span class="sig-prename descclassname"><span class="pre">neo.meta_func.</span></span><span class="sig-name descname"><span class="pre">single_matrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">matrixfile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">first_row</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skill_column</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/neo/meta_func.html#single_matrix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neo.meta_func.single_matrix" title="Link to this definition"></a></dt>
+<dd><p>This meta function extracts the matrix of a single topic.
+If the plot function is used, the two plots are given:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>N people vs skills</p></li>
+<li><p>Total proficiency vs skills</p></li>
+</ul>
+</div></blockquote>
+<section id="parameters">
+<h3>Parameters<a class="headerlink" href="#parameters" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>matrixfile<span class="classifier">str</span></dt><dd><p>file name</p>
+</dd>
+<dt>name<span class="classifier">str</span></dt><dd><p>name of a matrix in the file</p>
+</dd>
+<dt>first_row<span class="classifier">int</span></dt><dd><p>first spreadsheet row where the table starts (header line)</p>
+</dd>
+<dt>skill_column:   str</dt><dd><p>letter of the column where skills are</p>
+</dd>
+</dl>
+</section>
+<section id="id1">
+<h3>Return<a class="headerlink" href="#id1" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>matrix<span class="classifier">dict</span></dt><dd><p>with matrix data</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="neo.meta_func.single_rse">
+<span class="sig-prename descclassname"><span class="pre">neo.meta_func.</span></span><span class="sig-name descname"><span class="pre">single_rse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">matrixfile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">first_row</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skill_column</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rse</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/neo/meta_func.html#single_rse"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neo.meta_func.single_rse" title="Link to this definition"></a></dt>
+<dd><p>This meta function extracts the matrix of a single topic and the data of
+a single RSE.
+If the plot function is used a proficiency spider plot is displayed</p>
+<section id="id2">
+<h3>Parameters<a class="headerlink" href="#id2" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>matrixfile<span class="classifier">str</span></dt><dd><p>file name</p>
+</dd>
+<dt>name<span class="classifier">str</span></dt><dd><p>name of a matrix in the file</p>
+</dd>
+<dt>first_row<span class="classifier">int</span></dt><dd><p>first spreadsheet row where the table starts (header line)</p>
+</dd>
+<dt>skill_column:   str</dt><dd><p>letter of the column where skills are</p>
+</dd>
+<dt>rse<span class="classifier">str</span></dt><dd><p>name of the rse</p>
+</dd>
+</dl>
+</section>
+<section id="id3">
+<h3>Return<a class="headerlink" href="#id3" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>matrix<span class="classifier">dict</span></dt><dd><p>with matrix data</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="neo.meta_func.training_matrix">
+<span class="sig-prename descclassname"><span class="pre">neo.meta_func.</span></span><span class="sig-name descname"><span class="pre">training_matrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">matrixfile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/neo/meta_func.html#training_matrix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neo.meta_func.training_matrix" title="Link to this definition"></a></dt>
+<dd><p>This function is called when training is given as argument
+it plots the training need program.</p>
+<section id="id4">
+<h3>Parameters<a class="headerlink" href="#id4" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>matrixfile<span class="classifier">str</span></dt><dd><p>file with skills matrix</p>
+</dd>
+<dt>plot<span class="classifier">bool</span></dt><dd><p>If you want to display the plot</p>
+</dd>
+</dl>
+</section>
+<section id="id5">
+<h3>Return<a class="headerlink" href="#id5" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>needs<span class="classifier">dict</span></dt><dd><p>skills : Training needs (number)</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+</section>
+<section id="module-neo.plot_matrix">
+<span id="neo-plot-matrix-module"></span><h2>neo.plot_matrix module<a class="headerlink" href="#module-neo.plot_matrix" title="Link to this heading"></a></h2>
+<p>This file gathers the source code that plots
+skills matrices.</p>
+<p>Author: R. Thomas
+Year: 2023-24
+Place: U. of Sheffield
+Licence: GPLv3
+Pylint: 10</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="neo.plot_matrix.make_matrix_barplot">
+<span class="sig-prename descclassname"><span class="pre">neo.plot_matrix.</span></span><span class="sig-name descname"><span class="pre">make_matrix_barplot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">matrix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fig</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'RSE</span> <span class="pre">matrix'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/neo/plot_matrix.html#make_matrix_barplot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neo.plot_matrix.make_matrix_barplot" title="Link to this definition"></a></dt>
+<dd><p>This function makes a polar barplot to represent the matrix</p>
+<section id="id6">
+<h3>Parameter<a class="headerlink" href="#id6" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>name<span class="classifier">str</span></dt><dd><p>Name of the matrix</p>
+</dd>
+<dt>matrix<span class="classifier">dict</span></dt><dd><p>skill vs number</p>
+</dd>
+</dl>
+</section>
+<section id="id7">
+<h3>Return<a class="headerlink" href="#id7" title="Link to this heading"></a></h3>
+<p>None</p>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="neo.plot_matrix.make_matrix_spiderplot">
+<span class="sig-prename descclassname"><span class="pre">neo.plot_matrix.</span></span><span class="sig-name descname"><span class="pre">make_matrix_spiderplot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">matrix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fig</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'RSE</span> <span class="pre">matrix'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/neo/plot_matrix.html#make_matrix_spiderplot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neo.plot_matrix.make_matrix_spiderplot" title="Link to this definition"></a></dt>
+<dd><p>This function makes a polar barplot to represent the matrix</p>
+<section id="id8">
+<h3>Parameter<a class="headerlink" href="#id8" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>name<span class="classifier">str</span></dt><dd><p>Name of the matrix</p>
+</dd>
+<dt>matrix<span class="classifier">dict</span></dt><dd><p>skill vs number</p>
+</dd>
+</dl>
+</section>
+<section id="id9">
+<h3>Return<a class="headerlink" href="#id9" title="Link to this heading"></a></h3>
+<p>None</p>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="neo.plot_matrix.make_rse_indiv">
+<span class="sig-prename descclassname"><span class="pre">neo.plot_matrix.</span></span><span class="sig-name descname"><span class="pre">make_rse_indiv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rse_skills</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rse_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fig</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'RSE</span> <span class="pre">matrix'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/neo/plot_matrix.html#make_rse_indiv"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neo.plot_matrix.make_rse_indiv" title="Link to this definition"></a></dt>
+<dd><p>This is the method that creates the plot for an individual
+rse</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="neo.plot_matrix.make_training">
+<span class="sig-prename descclassname"><span class="pre">neo.plot_matrix.</span></span><span class="sig-name descname"><span class="pre">make_training</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">needs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fig</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/neo/plot_matrix.html#make_training"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neo.plot_matrix.make_training" title="Link to this definition"></a></dt>
+<dd><p>This function prepares data to that will then be plotted
+in the skills matrix template</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="neo.plot_matrix.plot_aestethics">
+<span class="sig-prename descclassname"><span class="pre">neo.plot_matrix.</span></span><span class="sig-name descname"><span class="pre">plot_aestethics</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'off'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ticks_on</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nticks</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">circles_on</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">circles_rad</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[5,</span> <span class="pre">10,</span> <span class="pre">15,</span> <span class="pre">20]</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/neo/plot_matrix.html#plot_aestethics"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neo.plot_matrix.plot_aestethics" title="Link to this definition"></a></dt>
+<dd><p>This is a generic function to make the aesthetics of the plots</p>
+</dd></dl>
+
+</section>
+<section id="module-neo.read_skills_matrix">
+<span id="neo-read-skills-matrix-module"></span><h2>neo.read_skills_matrix module<a class="headerlink" href="#module-neo.read_skills_matrix" title="Link to this heading"></a></h2>
+<p>This files is the source code containing classes to read matrices from spreadsheet</p>
+<p>Author : R. Thomas
+Place : U. of Sheffield
+Year: 2023-24
+Licence: GPLv3
+Pylint: 9.78/10</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="neo.read_skills_matrix.GeneralMatrix">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">neo.read_skills_matrix.</span></span><span class="sig-name descname"><span class="pre">GeneralMatrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">workbook</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sheet_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">first_row</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/neo/read_skills_matrix.html#GeneralMatrix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neo.read_skills_matrix.GeneralMatrix" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>This class is a basic class that gets
+properties of a spreadsheet table
+Other classes are inheriting from this
+one</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="neo.read_skills_matrix.GeneralMatrix.get_nperson_per_skill">
+<span class="sig-name descname"><span class="pre">get_nperson_per_skill</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rses</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skills</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/neo/read_skills_matrix.html#GeneralMatrix.get_nperson_per_skill"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neo.read_skills_matrix.GeneralMatrix.get_nperson_per_skill" title="Link to this definition"></a></dt>
+<dd><p>Get the number of person per skill
+We add a +1 to the skill score
+if the person as a number higher than 1
+or a Yes</p>
+<section id="id10">
+<h3>Parameter<a class="headerlink" href="#id10" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>skillname<span class="classifier">str</span></dt><dd><p>skill for which we want the score</p>
+</dd>
+</dl>
+</section>
+<section id="id11">
+<h3>Return<a class="headerlink" href="#id11" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>skill_score<span class="classifier">int</span></dt><dd><p>score for the skill</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="neo.read_skills_matrix.GeneralMatrix.get_rses">
+<span class="sig-name descname"><span class="pre">get_rses</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/neo/read_skills_matrix.html#GeneralMatrix.get_rses"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neo.read_skills_matrix.GeneralMatrix.get_rses" title="Link to this definition"></a></dt>
+<dd><p>This method gets the name of all RSEs in the subskill matrix</p>
+<section id="id12">
+<h3>Parameter<a class="headerlink" href="#id12" title="Link to this heading"></a></h3>
+<p>None</p>
+</section>
+<section id="id13">
+<h3>Return<a class="headerlink" href="#id13" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>rses    dict</dt><dd><p>column letter &lt;==&gt; RSE name</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="neo.read_skills_matrix.GeneralMatrix.get_skills_list">
+<span class="sig-name descname"><span class="pre">get_skills_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">column_skills</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'A'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/neo/read_skills_matrix.html#GeneralMatrix.get_skills_list"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neo.read_skills_matrix.GeneralMatrix.get_skills_list" title="Link to this definition"></a></dt>
+<dd><p>This method gets the name of all the skills listed in the subskill matrix
+We assume that the list starts on cell A-3 and goes on the 1st column</p>
+<section id="id14">
+<h3>Parameter<a class="headerlink" href="#id14" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>column_skills<span class="classifier">str</span></dt><dd><p>column letter with skills.
+Defaut is ‘A’</p>
+</dd>
+</dl>
+</section>
+<section id="id15">
+<h3>Return<a class="headerlink" href="#id15" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>skills      list</dt><dd><p>list of skills for that matrix</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="neo.read_skills_matrix.GeneralMatrix.get_skills_per_person">
+<span class="sig-name descname"><span class="pre">get_skills_per_person</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rsecolumn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rsename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skills</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/neo/read_skills_matrix.html#GeneralMatrix.get_skills_per_person"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neo.read_skills_matrix.GeneralMatrix.get_skills_per_person" title="Link to this definition"></a></dt>
+<dd><p>THis method gets the skills and proficiency
+for all skills in the matrix for the rse
+given in argument</p>
+<section id="id16">
+<h3>Parameter<a class="headerlink" href="#id16" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>rsecolumn         :str</dt><dd><p>column name of the rse</p>
+</dd>
+<dt>skills<span class="classifier">list</span></dt><dd><p>of skills in the matrix</p>
+</dd>
+</dl>
+</section>
+<section id="id17">
+<h3>return<a class="headerlink" href="#id17" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>rse_skills<span class="classifier">nested dict</span></dt><dd><p>skills : {‘prof’:X, ‘usage’:Y/N}</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="neo.read_skills_matrix.GeneralMatrix.get_table">
+<span class="sig-name descname"><span class="pre">get_table</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/neo/read_skills_matrix.html#GeneralMatrix.get_table"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neo.read_skills_matrix.GeneralMatrix.get_table" title="Link to this definition"></a></dt>
+<dd><p>This method extracts the complete table. It uses the get_table_shape
+method to find the limits</p>
+<section id="id18">
+<h3>Parameters<a class="headerlink" href="#id18" title="Link to this heading"></a></h3>
+<p>None</p>
+</section>
+<section id="id19">
+<h3>Return<a class="headerlink" href="#id19" title="Link to this heading"></a></h3>
+<p>None</p>
+</section>
+<section id="attributes">
+<h3>Attributes<a class="headerlink" href="#attributes" title="Link to this heading"></a></h3>
+<p>table   : list of list of columns</p>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="neo.read_skills_matrix.GeneralMatrix.get_table_shape">
+<span class="sig-name descname"><span class="pre">get_table_shape</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/neo/read_skills_matrix.html#GeneralMatrix.get_table_shape"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neo.read_skills_matrix.GeneralMatrix.get_table_shape" title="Link to this definition"></a></dt>
+<dd><p>This method gets the shape of the matrix (rows x columns)</p>
+<section id="id20">
+<h3>Parameters<a class="headerlink" href="#id20" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>skipped_lines<span class="classifier">list</span></dt><dd><p>of int: Lines number to be skipped 
+default is empty list [no skipped lines]</p>
+</dd>
+</dl>
+</section>
+<section id="returns">
+<h3>Returns<a class="headerlink" href="#returns" title="Link to this heading"></a></h3>
+<p>None</p>
+</section>
+<section id="id21">
+<h3>Attributes<a class="headerlink" href="#id21" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>row     int</dt><dd><p>number of rows</p>
+</dd>
+<dt>cols    int</dt><dd><p>number of columns</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-neo.tests">
+<span id="neo-tests-module"></span><h2>neo.tests module<a class="headerlink" href="#module-neo.tests" title="Link to this heading"></a></h2>
+<p>This source code implements the tests for the module
+To run the test just run skills –tests</p>
+<p>Author: R. Thomas
+Year: 2023-24
+Place: U. of Sheffield
+Licence: GPLv3
+Pylint: 10</p>
+</section>
+<section id="module-neo">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-neo" title="Link to this heading"></a></h2>
+<p>The NEO module allows you to visualise a skills matrix
+with polar diagrams and spider plots.
+You can see the documentation at:</p>
+<p>Author: R. Thomas
+Place: U. of Sheffield
+Year: 2023
+Licence: GPLv3
+Pylint v3.0.3 score: 10</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="neo.GeneralMatrix">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">neo.</span></span><span class="sig-name descname"><span class="pre">GeneralMatrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">workbook</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sheet_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">first_row</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/neo/read_skills_matrix.html#GeneralMatrix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neo.GeneralMatrix" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>This class is a basic class that gets
+properties of a spreadsheet table
+Other classes are inheriting from this
+one</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="neo.GeneralMatrix.get_nperson_per_skill">
+<span class="sig-name descname"><span class="pre">get_nperson_per_skill</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rses</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skills</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/neo/read_skills_matrix.html#GeneralMatrix.get_nperson_per_skill"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neo.GeneralMatrix.get_nperson_per_skill" title="Link to this definition"></a></dt>
+<dd><p>Get the number of person per skill
+We add a +1 to the skill score
+if the person as a number higher than 1
+or a Yes</p>
+<section id="id22">
+<h3>Parameter<a class="headerlink" href="#id22" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>skillname<span class="classifier">str</span></dt><dd><p>skill for which we want the score</p>
+</dd>
+</dl>
+</section>
+<section id="id23">
+<h3>Return<a class="headerlink" href="#id23" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>skill_score<span class="classifier">int</span></dt><dd><p>score for the skill</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="neo.GeneralMatrix.get_rses">
+<span class="sig-name descname"><span class="pre">get_rses</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/neo/read_skills_matrix.html#GeneralMatrix.get_rses"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neo.GeneralMatrix.get_rses" title="Link to this definition"></a></dt>
+<dd><p>This method gets the name of all RSEs in the subskill matrix</p>
+<section id="id24">
+<h3>Parameter<a class="headerlink" href="#id24" title="Link to this heading"></a></h3>
+<p>None</p>
+</section>
+<section id="id25">
+<h3>Return<a class="headerlink" href="#id25" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>rses    dict</dt><dd><p>column letter &lt;==&gt; RSE name</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="neo.GeneralMatrix.get_skills_list">
+<span class="sig-name descname"><span class="pre">get_skills_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">column_skills</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'A'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/neo/read_skills_matrix.html#GeneralMatrix.get_skills_list"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neo.GeneralMatrix.get_skills_list" title="Link to this definition"></a></dt>
+<dd><p>This method gets the name of all the skills listed in the subskill matrix
+We assume that the list starts on cell A-3 and goes on the 1st column</p>
+<section id="id26">
+<h3>Parameter<a class="headerlink" href="#id26" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>column_skills<span class="classifier">str</span></dt><dd><p>column letter with skills.
+Defaut is ‘A’</p>
+</dd>
+</dl>
+</section>
+<section id="id27">
+<h3>Return<a class="headerlink" href="#id27" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>skills      list</dt><dd><p>list of skills for that matrix</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="neo.GeneralMatrix.get_skills_per_person">
+<span class="sig-name descname"><span class="pre">get_skills_per_person</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rsecolumn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rsename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skills</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/neo/read_skills_matrix.html#GeneralMatrix.get_skills_per_person"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neo.GeneralMatrix.get_skills_per_person" title="Link to this definition"></a></dt>
+<dd><p>THis method gets the skills and proficiency
+for all skills in the matrix for the rse
+given in argument</p>
+<section id="id28">
+<h3>Parameter<a class="headerlink" href="#id28" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>rsecolumn         :str</dt><dd><p>column name of the rse</p>
+</dd>
+<dt>skills<span class="classifier">list</span></dt><dd><p>of skills in the matrix</p>
+</dd>
+</dl>
+</section>
+<section id="id29">
+<h3>return<a class="headerlink" href="#id29" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>rse_skills<span class="classifier">nested dict</span></dt><dd><p>skills : {‘prof’:X, ‘usage’:Y/N}</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="neo.GeneralMatrix.get_table">
+<span class="sig-name descname"><span class="pre">get_table</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/neo/read_skills_matrix.html#GeneralMatrix.get_table"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neo.GeneralMatrix.get_table" title="Link to this definition"></a></dt>
+<dd><p>This method extracts the complete table. It uses the get_table_shape
+method to find the limits</p>
+<section id="id30">
+<h3>Parameters<a class="headerlink" href="#id30" title="Link to this heading"></a></h3>
+<p>None</p>
+</section>
+<section id="id31">
+<h3>Return<a class="headerlink" href="#id31" title="Link to this heading"></a></h3>
+<p>None</p>
+</section>
+<section id="id32">
+<h3>Attributes<a class="headerlink" href="#id32" title="Link to this heading"></a></h3>
+<p>table   : list of list of columns</p>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="neo.GeneralMatrix.get_table_shape">
+<span class="sig-name descname"><span class="pre">get_table_shape</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/neo/read_skills_matrix.html#GeneralMatrix.get_table_shape"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neo.GeneralMatrix.get_table_shape" title="Link to this definition"></a></dt>
+<dd><p>This method gets the shape of the matrix (rows x columns)</p>
+<section id="id33">
+<h3>Parameters<a class="headerlink" href="#id33" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>skipped_lines<span class="classifier">list</span></dt><dd><p>of int: Lines number to be skipped 
+default is empty list [no skipped lines]</p>
+</dd>
+</dl>
+</section>
+<section id="id34">
+<h3>Returns<a class="headerlink" href="#id34" title="Link to this heading"></a></h3>
+<p>None</p>
+</section>
+<section id="id35">
+<h3>Attributes<a class="headerlink" href="#id35" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>row     int</dt><dd><p>number of rows</p>
+</dd>
+<dt>cols    int</dt><dd><p>number of columns</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="neo.make_matrix_barplot">
+<span class="sig-prename descclassname"><span class="pre">neo.</span></span><span class="sig-name descname"><span class="pre">make_matrix_barplot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">matrix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fig</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'RSE</span> <span class="pre">matrix'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/neo/plot_matrix.html#make_matrix_barplot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neo.make_matrix_barplot" title="Link to this definition"></a></dt>
+<dd><p>This function makes a polar barplot to represent the matrix</p>
+<section id="id36">
+<h3>Parameter<a class="headerlink" href="#id36" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>name<span class="classifier">str</span></dt><dd><p>Name of the matrix</p>
+</dd>
+<dt>matrix<span class="classifier">dict</span></dt><dd><p>skill vs number</p>
+</dd>
+</dl>
+</section>
+<section id="id37">
+<h3>Return<a class="headerlink" href="#id37" title="Link to this heading"></a></h3>
+<p>None</p>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="neo.make_matrix_spiderplot">
+<span class="sig-prename descclassname"><span class="pre">neo.</span></span><span class="sig-name descname"><span class="pre">make_matrix_spiderplot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">matrix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fig</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'RSE</span> <span class="pre">matrix'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/neo/plot_matrix.html#make_matrix_spiderplot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neo.make_matrix_spiderplot" title="Link to this definition"></a></dt>
+<dd><p>This function makes a polar barplot to represent the matrix</p>
+<section id="id38">
+<h3>Parameter<a class="headerlink" href="#id38" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>name<span class="classifier">str</span></dt><dd><p>Name of the matrix</p>
+</dd>
+<dt>matrix<span class="classifier">dict</span></dt><dd><p>skill vs number</p>
+</dd>
+</dl>
+</section>
+<section id="id39">
+<h3>Return<a class="headerlink" href="#id39" title="Link to this heading"></a></h3>
+<p>None</p>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="neo.make_training">
+<span class="sig-prename descclassname"><span class="pre">neo.</span></span><span class="sig-name descname"><span class="pre">make_training</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">needs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fig</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/neo/plot_matrix.html#make_training"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neo.make_training" title="Link to this definition"></a></dt>
+<dd><p>This function prepares data to that will then be plotted
+in the skills matrix template</p>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="usage.html" class="btn btn-neutral float-left" title="How to use neo?" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, R. Thomas.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
